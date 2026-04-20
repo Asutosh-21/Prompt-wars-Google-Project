@@ -1,0 +1,7 @@
+.env
+.env.*
+serviceAccountKey.json
+node_modules
+*.log
+test-*.mjs
+README.md

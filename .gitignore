@@ -1,0 +1,22 @@
+# ── Secrets — NEVER commit these ─────────────────────────────
+backend/.env
+backend/serviceAccountKey.json
+backend/serviceAccountKey.json.json
+
+# ── Dependencies ──────────────────────────────────────────────
+backend/node_modules/
+mcp/node_modules/
+node_modules/
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── Test scripts ─────────────────────────────────────────────
+backend/test-*.mjs
+backend/_fix*.mjs
+_fix*.mjs
+
+# ── OS files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
