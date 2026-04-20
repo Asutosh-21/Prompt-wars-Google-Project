@@ -158,13 +158,22 @@ app.use(defaultLimiter);
 //  ROUTES
 // ══════════════════════════════════════════════════════════════
 
-// Root route — API info
+// Root route — redirect to frontend or show API info
 app.get('/', (req, res) => {
+  // If browser request → redirect to frontend
+  const acceptsHTML = req.headers.accept?.includes('text/html');
+  if (acceptsHTML) {
+    return res.redirect(301, 'https://prompt-war-virtual.web.app');
+  }
+  // If API/curl request → show API info
   res.json({
     name: 'StadiumSaathi API',
     version: '2.0',
     description: 'Real-time stadium crowd navigation powered by Gemini Pro + Firebase',
     status: 'live',
+    frontend: 'https://prompt-war-virtual.web.app',
+    health:   'https://stadiumsaathi-backend-346029077661.us-central1.run.app/health',
+    github:   'https://github.com/Asutosh-21/Prompt-wars-Google-Project',
     powered_by: ['Gemini 2.0 Flash', 'Firebase Realtime DB', 'Cloud Run', 'Pub/Sub', 'BigQuery'],
     endpoints: {
       health:      'GET /health',
@@ -176,8 +185,6 @@ app.get('/', (req, res) => {
       restroom:    'POST /api/decision/restroom',
       exit:        'POST /api/decision/exit',
     },
-    frontend: 'https://prompt-war-virtual.web.app',
-    github:   'https://github.com/Asutosh-21/Prompt-wars-Google-Project',
   });
 });
 
