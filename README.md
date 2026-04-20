@@ -10,7 +10,7 @@
 
 **Context-aware crowd navigation and decision engine for large-scale sporting venues**
 
-[🌐 Live App](https://prompt-war-virtual.web.app) · [⚙️ Backend API](https://stadiumsaathi-backend-346029077661.us-central1.run.app) · [💻 GitHub](https://github.com/Asutosh-21/Prompt-wars-Google-Project)
+[🌐 Live App](https://prompt-war-virtual.web.app) · [⚙️ Backend API](https://stadiumsaathi-backend-346029077661.us-central1.run.app) · [✅ Health](https://stadiumsaathi-backend-346029077661.us-central1.run.app/health) · [💻 GitHub](https://github.com/Asutosh-21/Prompt-wars-Google-Project)
 
 *Built for the Google Prompt War Virtual Challenge 2024*
 
@@ -93,6 +93,8 @@ Alert:  Half-time in 2 min — go NOW before queue spike!
 | 🌐 Live Application | https://prompt-war-virtual.web.app |
 | ⚙️ Backend API | https://stadiumsaathi-backend-346029077661.us-central1.run.app |
 | ✅ Health Check | https://stadiumsaathi-backend-346029077661.us-central1.run.app/health |
+| 📊 Live Data | https://stadiumsaathi-backend-346029077661.us-central1.run.app/api/data |
+| 🔮 Predictions | https://stadiumsaathi-backend-346029077661.us-central1.run.app/api/predictions |
 | 🔥 Firebase Console | https://console.firebase.google.com/project/prompt-war-virtual |
 
 **Test Queries:**
