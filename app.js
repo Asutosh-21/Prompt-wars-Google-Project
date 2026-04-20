@@ -122,7 +122,7 @@ const CONGESTION_PENALTY = { low:0, medium:2, high:5, critical:10 };
 // ════════════════════════════════════════════════════════════
 const state = {
   user: { seat:'G24', block:'B2', foodPref:'any', mobility:false, },
-  backendUrl: 'http://localhost:8080',
+  backendUrl: 'https://stadiumsaathi-backend-346029077661.us-central1.run.app',
   backendOnline: false,
   uid: null,
   csrfToken: null,
