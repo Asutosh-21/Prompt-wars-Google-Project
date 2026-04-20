@@ -19,4 +19,8 @@ _fix*.mjs
 
 # ── OS files ─────────────────────────────────────────────────
 .DS_Store
-Thumbs.db
+Thumb.db
+
+# ── Firebase local cache ─────────────────────────────────────
+.firebase/
+firebase-debug.log
