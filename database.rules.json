@@ -1,0 +1,59 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null",
+
+    "queues": {
+      ".read": true,
+      ".write": "auth != null",
+      "$stall_id": {
+        ".validate": "newData.hasChildren(['wait_min', 'zone_density'])",
+        "wait_min":     { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 120" },
+        "zone_density": { ".validate": "newData.isString() && newData.val().matches(/^(low|medium|high|critical)$/)" },
+        "name":         { ".validate": "newData.isString()" }
+      }
+    },
+
+    "restrooms": {
+      ".read": true,
+      ".write": "auth != null",
+      "$room_id": {
+        ".validate": "newData.hasChildren(['occupancy', 'wait_min', 'density'])",
+        "occupancy": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100" },
+        "wait_min":  { ".validate": "newData.isNumber() && newData.val() >= 0" },
+        "density":   { ".validate": "newData.isString() && newData.val().matches(/^(low|medium|high|critical)$/)" },
+        "capacity":  { ".validate": "newData.isNumber()" },
+        "name":      { ".validate": "newData.isString()" }
+      }
+    },
+
+    "exits": {
+      ".read": true,
+      ".write": "auth != null",
+      "$gate_id": {
+        ".validate": "newData.hasChildren(['congestion', 'delay_min'])",
+        "congestion": { ".validate": "newData.isString() && newData.val().matches(/^(low|medium|high|critical)$/)" },
+        "delay_min":  { ".validate": "newData.isNumber() && newData.val() >= 0" },
+        "transit":    { ".validate": "newData.isString() || newData.val() === null" },
+        "name":       { ".validate": "newData.isString()" }
+      }
+    },
+
+    "crowd_density": {
+      ".read": true,
+      ".write": "auth != null",
+      "$zone": {
+        ".validate": "newData.isString() && newData.val().matches(/^(low|medium|high|critical)$/)"
+      }
+    },
+
+    "match_status": {
+      ".read": true,
+      ".write": "auth != null",
+      "phase":          { ".validate": "newData.isString()" },
+      "score":          { ".validate": "newData.isString()" },
+      "inning":         { ".validate": "newData.isString()" },
+      "next_break_min": { ".validate": "newData.isNumber() && newData.val() >= 0" }
+    }
+  }
+}
