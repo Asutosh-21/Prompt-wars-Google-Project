@@ -158,6 +158,29 @@ app.use(defaultLimiter);
 //  ROUTES
 // ══════════════════════════════════════════════════════════════
 
+// Root route — API info
+app.get('/', (req, res) => {
+  res.json({
+    name: 'StadiumSaathi API',
+    version: '2.0',
+    description: 'Real-time stadium crowd navigation powered by Gemini Pro + Firebase',
+    status: 'live',
+    powered_by: ['Gemini 2.0 Flash', 'Firebase Realtime DB', 'Cloud Run', 'Pub/Sub', 'BigQuery'],
+    endpoints: {
+      health:      'GET /health',
+      data:        'GET /api/data',
+      predictions: 'GET /api/predictions',
+      metrics:     'GET /api/metrics',
+      chat:        'POST /api/chat',
+      food:        'POST /api/decision/food',
+      restroom:    'POST /api/decision/restroom',
+      exit:        'POST /api/decision/exit',
+    },
+    frontend: 'https://prompt-war-virtual.web.app',
+    github:   'https://github.com/Asutosh-21/Prompt-wars-Google-Project',
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', mode: IS_DEMO ? 'demo' : 'live', timestamp: new Date().toISOString() });
