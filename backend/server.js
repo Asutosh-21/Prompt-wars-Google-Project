@@ -193,6 +193,22 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', mode: IS_DEMO ? 'demo' : 'live', timestamp: new Date().toISOString() });
 });
 
+// Firebase client config — served securely from backend, never hardcoded in frontend
+app.get('/api/firebase-config', (req, res) => {
+  if (!process.env.FIREBASE_API_KEY) {
+    return res.status(503).json({ error: 'Firebase not configured.' });
+  }
+  res.json({
+    apiKey:            process.env.FIREBASE_API_KEY,
+    authDomain:        process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL:       process.env.FIREBASE_DATABASE_URL,
+    projectId:         process.env.FIREBASE_PROJECT_ID,
+    storageBucket:     process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId:             process.env.FIREBASE_APP_ID,
+  });
+});
+
 // CSRF token
 app.get('/api/csrf-token', optionalAuth, (req, res) => {
   res.json({ ok: true, csrfToken: generateCsrfToken(req.uid) });

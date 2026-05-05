@@ -23,16 +23,18 @@
 // Firebase SDK config — replace placeholders with your real values from:
 // Firebase Console → Project Settings → General → Your apps → SDK setup
 // Leave as placeholders to run in Demo Mode (no Firebase needed)
+// Firebase config — loaded from backend /api/config endpoint at runtime
+// Never hardcode keys here. Keys are injected server-side.
 const FIREBASE_CONFIG = {
-  apiKey: "REDACTED_API_KEY",
-  authDomain: "prompt-war-virtual.firebaseapp.com",
-  databaseURL: "https://prompt-war-virtual-default-rtdb.firebaseio.com",
-  projectId: "prompt-war-virtual",
-  storageBucket: "prompt-war-virtual.firebasestorage.app",
-  messagingSenderId: "346029077661",
-  appId: "1:346029077661:web:a2070aab9fa17c87c4d074",
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
 };
-const FIREBASE_READY = FIREBASE_CONFIG.apiKey !== "FIREBASE_API_KEY_PLACEHOLDER";
+
 
 // Google Maps API key (optional — for real indoor/outdoor routing)
 // Get from: https://console.cloud.google.com/apis/library/maps-backend.googleapis.com
@@ -174,8 +176,22 @@ function getDefaultLiveData() {
 //  FIREBASE ANONYMOUS AUTH + REALTIME LISTENER
 // ════════════════════════════════════════════════════════════
 async function initFirebase() {
-  if (!FIREBASE_READY) return;
   try {
+    // Fetch config securely from backend — never expose keys in frontend code
+    const res = await fetch(`${state.backendUrl}/api/firebase-config`, { signal: AbortSignal.timeout(3000) });
+    if (res.ok) {
+      const cfg = await res.json();
+      Object.assign(FIREBASE_CONFIG, cfg);
+    } else {
+      console.warn('[Firebase] Could not load config from backend — running without Firebase.');
+      return;
+    }
+  } catch (e) {
+    console.warn('[Firebase] Config fetch failed — running without Firebase.', e.message);
+    return;
+  }
+
+  if (!FIREBASE_CONFIG.apiKey) return;
     const { initializeApp }                         = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
     const { getAuth, signInAnonymously, onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
     const { getDatabase, ref, onValue }             = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
